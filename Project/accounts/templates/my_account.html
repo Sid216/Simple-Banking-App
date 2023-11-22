@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block title %}My Accounts{% endblock %}
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+
+<div class="card">
+
+    <div class="card-body">
+
+
+        <div class="h3">My Accounts</div>
+        {% if accounts %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Account Number</th>
+                    <th>Account Type</th>
+                    <th>Modified</th>
+                    <th>Balance</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for account in accounts %}
+
+                <tr>
+                    <td>{{ account["id"] }}</td>
+                    <td>{{ account["account_number"] }}</td>
+                    <td>{{ account["account_type"] }}</td>
+                    <td>{{ account["modified"] }}</td>
+                    <td>{{ account["balance"] }}</td>
+                    <td>
+                        <a href="{{url_for('accounts.account_details', account_number=account["account_number"])}}">View</a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<p>No accounts found.</p>
+{% endif %}
+{% endblock %}
